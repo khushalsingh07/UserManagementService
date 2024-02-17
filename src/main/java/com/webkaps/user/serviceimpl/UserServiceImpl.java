@@ -3,17 +3,16 @@ package com.webkaps.user.serviceimpl;
 import com.webkaps.user.dto.Hotel;
 import com.webkaps.user.dto.Rating;
 import com.webkaps.user.exception.ResourceNotFoundException;
+import com.webkaps.user.external.service.HotelService;
 import com.webkaps.user.model.User;
 import com.webkaps.user.repository.UserRepository;
 import com.webkaps.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    HotelService hotelService;
 
     @Override
     public User saveUser(User user) {
@@ -51,8 +53,9 @@ public class UserServiceImpl implements UserService {
         List<Rating> ratings = Arrays.stream(ratingByUser).toList();
         List<Rating> ratingList = ratings.stream().map(rating -> {
            //Fetching Hotel Details on the basis of Rating
-            ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://localhost:8083/hotel-service/" + rating.getHotelId(), Hotel.class);
-            Hotel hotel = forEntity.getBody();
+            //ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://localhost:8083/hotel-service/" + rating.getHotelId(), Hotel.class);
+            //Hotel hotel = forEntity.getBody();
+            Hotel hotel = hotelService.getHotel(rating.getHotelId());
             rating.setHotel(hotel);
             return rating;
         }).collect(Collectors.toList());
