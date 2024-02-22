@@ -1,5 +1,6 @@
 package com.webkaps.user.model;
 
+import com.webkaps.user.dto.Hotel;
 import com.webkaps.user.dto.Rating;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user_details")
+@Table(name = "user_detail")
 public class User {
     @Id
     @Column(name = "user_id")
@@ -26,10 +27,9 @@ public class User {
     private String userEmailId;
     @Column(name = "about_user")
     private String about;
+    /*@Transient
+    private List<Rating> ratings = new ArrayList<>();*/
 
     @Transient
-    private Rating rating;
-
-    @Transient
-    private List<Rating> ratings = new ArrayList<>();
+    private List<Hotel> hotels = new ArrayList<>();
 }

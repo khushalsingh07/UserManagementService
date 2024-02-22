@@ -17,6 +17,7 @@ public class UserController {
     private UserService userService;
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user){
+        System.out.println("Insise...");
         String randomNo = UUID.randomUUID().toString();
         user.setUserId(randomNo);
         User createdUser = userService.saveUser(user);
