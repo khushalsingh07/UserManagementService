@@ -15,11 +15,15 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
 
-    @Autowired
-    private UserUtility userUtility;
+    public UserController(UserService userService, UserUtility userUtility) {
+        this.userService = userService;
+        this.userUtility = userUtility;
+    }
+
+    private final UserService userService;
+
+    private final UserUtility userUtility;
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user){
