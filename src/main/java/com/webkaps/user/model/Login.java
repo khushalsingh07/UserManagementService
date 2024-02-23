@@ -2,6 +2,7 @@ package com.webkaps.user.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,13 +18,16 @@ import java.util.Date;
 @Entity
 @Table(name = "login_details")
 public class Login {
-    @Column(name = "user_id")
+    @Id
+    @Column(name = "login_id")
+    private String loginId;
+    @Column(name = "user_id", nullable = false)
     private String userId;
-    @Column(name = "login")
+    @Column(name = "login", nullable = false)
     private Date  login;
-    @Column(name = "otp")
+    @Column(name = "otp", nullable = false)
     private Integer otp;
-    @Column(name = "otp_valid_upto")
+    @Column(name = "otp_valid_upto", nullable = false)
     private Date otpValidUpTo;
 
 }

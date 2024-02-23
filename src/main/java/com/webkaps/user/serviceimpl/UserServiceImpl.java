@@ -42,20 +42,22 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
         List<Hotel> hotelList = user.getHotels();
         System.out.println("Hotel List Size  :: "+hotelList.size());
-        List<Hotel> savedHotelList = hotelList.stream().map(hotel -> {
-            System.out.println("he He He "+hotel.toString());
-            System.out.println("Saved User Id  :: "+savedUser.getUserId());
-            hotel.setUserId(savedUser.getUserId());
-            Hotel savedHotel = hotelService.saveHotel(hotel);
-            System.out.println("Saved Hotel Id  : "+savedHotel.getHotelId());
-            Rating rating = hotel.getRating();
-            rating.setHotelId(savedHotel.getHotelId());
-            System.out.println("Rating Rating "+ rating.toString());
-            Rating savedRating =ratingService.saveRating(rating);
-            savedHotel.setRating(savedRating);
-            return savedHotel;
-        }).collect(Collectors.toList());
-        savedUser.setHotels(savedHotelList);
+        if (hotelList !=null && hotelList.size()>0) {
+            List<Hotel> savedHotelList = hotelList.stream().map(hotel -> {
+                System.out.println("he He He " + hotel.toString());
+                System.out.println("Saved User Id  :: " + savedUser.getUserId());
+                hotel.setUserId(savedUser.getUserId());
+                Hotel savedHotel = hotelService.saveHotel(hotel);
+                System.out.println("Saved Hotel Id  : " + savedHotel.getHotelId());
+                Rating rating = hotel.getRating();
+                rating.setHotelId(savedHotel.getHotelId());
+                System.out.println("Rating Rating " + rating.toString());
+                Rating savedRating = ratingService.saveRating(rating);
+                savedHotel.setRating(savedRating);
+                return savedHotel;
+            }).collect(Collectors.toList());
+            savedUser.setHotels(savedHotelList);
+        }
         return savedUser;
     }
 
