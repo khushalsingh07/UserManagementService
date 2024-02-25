@@ -5,8 +5,12 @@ import com.webkaps.user.model.User;
 import java.util.List;
 
 public interface UserService {
+
+    //Get user by Username
+    String getUserByUserName(String userName);
+
     //Create User
-    User saveUser(User user);
+    String saveUser(User user);
 
     //Get All User
     List<User> getAllUser();
