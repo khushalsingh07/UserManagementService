@@ -1,9 +1,6 @@
 package com.webkaps.user.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,5 +26,11 @@ public class Login {
     private Integer otp;
     @Column(name = "otp_valid_upto", nullable = false)
     private Date otpValidUpTo;
+
+    @Transient
+    private String pwd;
+
+    @Transient
+    private String loginStatus;
 
 }
